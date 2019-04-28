@@ -64,7 +64,8 @@ lpConsoleCurrentFontEx);
 
 //######################
 //DECLARATII GLOBALE + DECLARATII FUNCTII
-//######################
+//#####################
+int VEC_A[1000],ANAX=1;
 int lab_mode();
 int main_menu();
 int main();
@@ -83,6 +84,7 @@ int zone_temperatura[129][129];
 int SEED_FINAL;
 int nr_supraf_usc=0;
 int nr_supraf_umd=0;
+int x_analitic,y_analitic;
 int x_USCAT=0,y_USCAT=0;
 int x_UMED=0,y_UMED=0;
 int copie_manipulabila_USCAT=0;
@@ -100,6 +102,7 @@ void afisare_lista_virus();
 void vizualizeaza_zonele_de_hrana();
 void vizualizeaza_zonele_de_clima();
 int tip_virus=0;
+int number_of_simulation=0;
 int inteligenta_artificiala_virus(int x_initial, int y_initial);
 int generare_mancare_zone_mancare(int k);
 int generare_clima();int algoritm_deploy();
@@ -129,6 +132,7 @@ int INTELIGENTA=1; //SCALE 0-100 ;
 int ADAPTARE=1;    //SCALE 0-100;
 int PUTERE=1; //SCALE 0-10;
 int analitic_mode();
+int FILTRU_ANALITIC(int PLATON);
 // 0 ZONE empty - asezare
 // 5 virus
 // 3 uscat
@@ -306,7 +310,6 @@ int verificare_status_USCAT_TO_UMED()
             afisare_harta();
             cout<<"_____________________________________"<<"\n\n";
             logout<<"_____________________________________"<<"\n\n";
-            Beep(400,50);
             cout<<"\n";logout<<"\n";
             key_pass_uscat=1;
             fitil_A=1;
@@ -339,8 +342,8 @@ int verificare_status_UMED()
             afisare_harta();
             cout<<"_____________________________________"<<"\n\n";
             logout<<"_____________________________________"<<"\n\n";
-            Beep(400,50);
-            Sleep(3000);
+            if(test_mode!=3)
+		    Sleep(3000);
             key_pass_umed=1;
         }
 }
@@ -429,21 +432,6 @@ int functie_meniu_principal()
           system("pause");
           functie_meniu_principal();
         }
-    CONSOLE_FONT_INFOEX cfi;
-    cfi.cbSize = sizeof(cfi);
-    cfi.nFont = 0;
-    cfi.dwFontSize.X = 0;
-    if(bit<88)
-        {
-            cfi.dwFontSize.Y = KONTROL_FONT;
-        }else
-            {
-              cfi.dwFontSize.Y=KONTROL_FONT;
-            }
-    cfi.FontFamily = FF_DONTCARE;
-    wcscpy(cfi.FaceName, L"Consolas");
-    cfi.FontWeight = FW_NORMAL;
-    SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
     selectare_categorie_virus();
     return 0;
 }
@@ -660,7 +648,6 @@ int generare_zone_harta()
     SetConsoleTextAttribute(h, 7);
     cout<<" SE GENEREAZA HARTA ... "<<"\n\n";
     cout<<"_____________________________________"<<"\n"<<"\n";
-    system("pause");
     system("cls");
     check_type_of_terrain();
     functie_calculare_patter_zone_uscate();
@@ -686,6 +673,7 @@ int check_type_of_terrain()
     float procentaj_mediu_static_acvatic=0;
     float procentaj_mediu_static_uscat=0;
     srand(time(NULL));
+    Sleep(100);
     int rand_mediu_uscat=rand()%100+0;
     procentaj_mediu_static_uscat=rand_mediu_uscat;
     procentaj_mediu_static_acvatic=100-rand_mediu_uscat;
@@ -747,7 +735,8 @@ int generare_pattern_zone_uscate()
     harta[x_USCAT][y_USCAT]=3;
     copie_manipulabila_USCAT--;
     cout<<x_USCAT<<" "<<y_USCAT<<"\n";
-    Sleep(3000);
+    if(test_mode!=3)
+	    Sleep(3000);
     generare_zone_umplere_USCAT(x_USCAT,y_USCAT);
     return 0;
 }
@@ -770,7 +759,8 @@ int generare_pattern_zone_umede()
                 }
         }
     copie_manipulabila_UMED--;
-    Sleep(3000);
+    if(test_mode!=3)
+    	Sleep(3000);
     generare_zone_umplere_UMED();
     return 0;
 }
@@ -816,8 +806,6 @@ int verificare_TOTALA()
     if(key_pass_uscat!=1 && key_pass_umed!=1)
         {
             system("cls");
-            Beep(1250,500);
-            Beep(500,250);
             SetConsoleTextAttribute(h, 206);
             cout<<"GENERAREA CORUPTA !"<<"\n";
             SetConsoleTextAttribute(h, 7);
@@ -1255,7 +1243,7 @@ int inteligenta_artificiala_virus(int x_initial,int y_initial)
                                                                 SetConsoleTextAttribute(h, 7);
                                                                 cout<<" X["<<curent_x+directie_x[seed_int_art]<<"]"<<"Y["<<curent_y+directie_y[seed_int_art]<<"]"<<"\n";
                                                                 logout<<"SYSTEM > POPULATIE INCREASE+1"<<" X["<<curent_x+directie_x[seed_int_art]<<"]"<<"Y["<<curent_y+directie_y[seed_int_art]<<"]"<<"\n";
-                                                                Sleep(500);
+                                                               Sleep(500);
                                                                 populatie++;
                                                                 ADAPTARE++;
                                                                 numar_de_generatii++;
@@ -1872,7 +1860,8 @@ int generare_mancare_zone_mancare(int k)
     cout<<"SYSTEM >";
     SetConsoleTextAttribute(h, 7);
     cout<<" ZONE HRANA GENERATE";SetConsoleTextAttribute(h, 10);cout<<" 100%";SetConsoleTextAttribute(h, 7);cout<<"\n";
-    Sleep(3000);
+    if(test_mode!=3)
+	    Sleep(3000);
 }
 
 //######################
@@ -1928,7 +1917,8 @@ int generare_fauna(int k)
     SetConsoleTextAttribute(h, 7);
     cout<<" FAUNA GENERATA";SetConsoleTextAttribute(h, 10);
     cout<<" 100%";SetConsoleTextAttribute(h, 7);cout<<"\n";
-    Sleep(3000);
+    if(test_mode!=3)
+	    Sleep(3000);
 }
 
 //######################
@@ -1943,9 +1933,10 @@ int generare_clima()
     SetConsoleTextAttribute(h, 7);
     cout<<" SE GENEREAZA CLIMA ! "<<"\n";
     cout<<"_____________________________________"<<"\n\n";
+    Sleep(100);
     srand(time(NULL));
     int j=0;
-    if(test_mode==1)
+    if(test_mode==1 || test_mode==3)
     {
         tip_zona=rand()%2+1;
     }
@@ -2006,7 +1997,8 @@ int generare_clima()
     cout<<"SYSTEM >";
     SetConsoleTextAttribute(h, 7);
     cout<<" CLIMA GENERATA ";SetConsoleTextAttribute(h, 10);cout<<" 100%\n";SetConsoleTextAttribute(h, 7);
-    Sleep(3000);
+   if(test_mode!=3)
+	   Sleep(3000);
     global_clima=tip_zona;
 }
 
@@ -2031,8 +2023,12 @@ int functie_finala()
     logout<<"GOOD BYE !"<<"\n";
     cout<<":) Prokaryotick Kingdom, LONG LIVE THE KING <8toro8>"<<"\n";
     logout<<":) Prokaryotick Kingdom, LONG LIVE THE KING <8toro8>"<<"\n";
-    system("pause");
+    if(test_mode!=3)
     exit(0);
+    number_of_simulation--;
+    VEC_A[ANAX]=numar_de_generatii;
+    ANAX++;
+    FILTRU_ANALITIC(number_of_simulation);
 
 }
 int main_menu()
@@ -2091,14 +2087,67 @@ int analitic_mode()
 {
 	system("cls");
     	cout<<"_____________________________________"<<"\n\n";
-	cout<<"ANALITIC MODE"<<"\n";	
+	cout<<"ANALITIC MODE"<<"\n";
         cout<<"_____________________________________"<<"\n\n";
-	cout<<"NUMBER OF SIMULATION:";int number_of_simulation;
+	cout<<"NUMBER OF SIMULATION:";
 	cin>>number_of_simulation;
 	cout<<"\n";
-    	cout<<"_____________________________________"<<"\n\n";
+	cout<<"DEPLOYMET OF VIRUS FOR EVERY SIMULATION"<<"\n";
+	cout<<"[X]=";cin>>x_analitic;cout<<"\n";
+	cout<<"[Y]=";cin>>y_analitic;cout<<"\n";
+	cout<<"_____________________________________"<<"\n\n";
 
 }
+
+int FILTRU_ANALITIC(int PLATON)
+{
+	if(PLATON>0)
+	{
+		generare_harta();
+		generare_zone_harta();
+		verificare_TOTALA();
+    		for(int i=1;i<=bit;i++)
+   		 {
+       			 for(int j=1;j<=bit;j++)
+        			{
+            				copie_harta[i][j]=harta[i][j];
+        			}
+   		 }
+    	if(x_analitic<bit || x_analitic>=0 || y_analitic<bit || y_analitic>=0)
+        {
+
+        }else{
+                SetConsoleTextAttribute(h, 12);
+                cout<<"SYSTEM >";
+                SetConsoleTextAttribute(h, 7);
+                cout<<" IN AFARA GRANITELOR HARTII  ! "<<"\n";
+                system("pause");
+                plasare_virus();
+            }
+	    cout<<"\n";
+   	    SetConsoleTextAttribute(h, 12);
+   	    cout<<"SYSTEM >";
+    	    SetConsoleTextAttribute(h, 7);
+    	    cout<<" VIRUS DEPLOYED !"<<"\n";
+    	    copie_orgine=harta[x_analitic][y_analitic];
+    	    harta[x_analitic][y_analitic]=5;
+    	    populatie++;
+   	    numar_de_generatii++;
+		inteligenta_artificiala_virus(x_analitic,y_analitic);
+
+	}else{
+		if(PLATON<=0)
+		{
+			cout<<"SIMULATIONS 100%"<<"\n";
+			for(int i=1;i<=ANAX;i++)
+			{
+				cout<<"SIM_nr_["<<i<<"] -> "<<VEC_A[i]<<"\n";
+			}
+			exit(0);
+		}
+	}
+}
+
 int main()
 {
     main_menu();
@@ -2116,7 +2165,8 @@ int main()
     }
     plasare_virus();
     }else {
-	//ANALITIC MODE 
+    	    //ANALITIC MODE
+	 	FILTRU_ANALITIC(number_of_simulation);
     }
     return 0;
     // :) Prokaryotick Kingdom, LONG LIVE THE KING <8toro8>
