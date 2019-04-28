@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1553899695 source:c:\users\petru\documents\project_alpha_test_v0.1\main.cpp
+	<iostream>
+	<ctime>
+	<time.h>
+	<windows.h>
+	<cwchar>
+	<fstream>
+	<string>
+	<ctime>
+	<iomanip>
+	<sstream>
+	<bits/stdc++.h>
+

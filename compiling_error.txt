@@ -1,0 +1,61 @@
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp: In function 'std::__cxx11::string unique_log_name()':
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:29:10: error: 'now' does not name a type
+     auto now = time(0);
+          ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:30:26: error: 'now' was not declared in this scope
+     tm *ltm = localtime(&now);
+                          ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:31:5: error: 'sostringstream' was not declared in this scope
+     sostringstream buffer;
+     ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:32:5: error: 'buffer' was not declared in this scope
+     buffer
+     ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:33:35: error: invalid initialization of non-const reference of type 'std::ostream& {aka std::basic_ostream<char>&}' from an rvalue of type 'int'
+         << "log/" << time_digits(4) << ltm.tm_year
+                                   ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:20:10: note: in passing argument 1 of 'std::ostream& time_digits(std::ostream&, unsigned int)'
+ ostream& time_digits(ostream& out, unsigned int digits)
+          ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:33:44: error: request for member 'tm_year' in 'ltm', which is of pointer type 'tm*' (maybe you meant to use '->' ?)
+         << "log/" << time_digits(4) << ltm.tm_year
+                                            ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:34:32: error: invalid initialization of non-const reference of type 'std::ostream& {aka std::basic_ostream<char>&}' from an rvalue of type 'int'
+         << "-" << time_digits(2) << ltm.tm_mon
+                                ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:20:10: note: in passing argument 1 of 'std::ostream& time_digits(std::ostream&, unsigned int)'
+ ostream& time_digits(ostream& out, unsigned int digits)
+          ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:34:41: error: request for member 'tm_mon' in 'ltm', which is of pointer type 'tm*' (maybe you meant to use '->' ?)
+         << "-" << time_digits(2) << ltm.tm_mon
+                                         ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:35:32: error: invalid initialization of non-const reference of type 'std::ostream& {aka std::basic_ostream<char>&}' from an rvalue of type 'int'
+         << "-" << time_digits(2) << ltm.tm_day;
+                                ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:20:10: note: in passing argument 1 of 'std::ostream& time_digits(std::ostream&, unsigned int)'
+ ostream& time_digits(ostream& out, unsigned int digits)
+          ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:35:41: error: request for member 'tm_day' in 'ltm', which is of pointer type 'tm*' (maybe you meant to use '->' ?)
+         << "-" << time_digits(2) << ltm.tm_day;
+                                         ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp: In function 'void client_code()':
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:50:20: warning: extended initializer lists only available with -std=c++11 or -std=gnu++11
+     ofstream myfile{ unique_log_name() };
+                    ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:50:40: error: in C++98 'myfile' must be initialized by constructor, not by '{...}'
+     ofstream myfile{ unique_log_name() };
+                                        ^
+C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:50:40: error: no matching function for call to 'std::basic_ofstream<char>::basic_ofstream(<brace-enclosed initializer list>)'
+In file included from C:\Users\Petru\Documents\PROJECT_ALPHA_TEST_V0.1\main.cpp:15:0:
+C:/Program Files (x86)/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/fstream:697:7: note: candidate: std::basic_ofstream<_CharT, _Traits>::basic_ofstream(const char*, std::ios_base::openmode) [with _CharT = char; _Traits = std::char_traits<char>; std::ios_base::openmode = std::_Ios_Openmode]
+       basic_ofstream(const char* __s,
+       ^
+C:/Program Files (x86)/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/fstream:697:7: note:   no known conversion for argument 1 from 'std::__cxx11::string {aka std::__cxx11::basic_string<char>}' to 'const char*'
+C:/Program Files (x86)/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/fstream:682:7: note: candidate: std::basic_ofstream<_CharT, _Traits>::basic_ofstream() [with _CharT = char; _Traits = std::char_traits<char>]
+       basic_ofstream(): __ostream_type(), _M_filebuf()
+       ^
+C:/Program Files (x86)/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/fstream:682:7: note:   candidate expects 0 arguments, 1 provided
+C:/Program Files (x86)/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/fstream:656:11: note: candidate: std::basic_ofstream<char>::basic_ofstream(const std::basic_ofstream<char>&)
+     class basic_ofstream : public basic_ostream<_CharT,_Traits>
+           ^
+C:/Program Files (x86)/CodeBlocks/MinGW/lib/gcc/mingw32/5.1.0/include/c++/fstream:656:11: note:   no known conversion for argument 1 from 'std::__cxx11::string {aka std::__cxx11::basic_string<char>}' to 'const std::basic_ofstream<char>&'
